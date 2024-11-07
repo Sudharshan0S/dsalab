@@ -78,6 +78,55 @@ node* leftRotate(node* y)
  node* T2 = x->right; 
 
  x->right = y;
+ y->left = T2; 
+
+ x->height = max(getHeight(x->right), getHeight(x->left)) + 1; 
+
+ y->height = max(getHeight(y->right), getHeight(y->left)) + 1; 
+
+ return x; 
+
+} 
+
+node* rightRotate(node* x)
+
+{ 
+
+ node* y = x->right; 
+
+ node* T2 = y->left; 
+
+ y->left = x; 
+
+ x->right = T2; 
+
+ x->height = max(getHeight(x->right), getHeight(x->left)) + 1; 
+
+ y->height = max(getHeight(y->right), getHeight(y->left)) + 1; 
+
+ return y; 
+
+} 
+
+node *insert(node* n, int key)
+
+{ 
+
+if (n == NULL) 
+
+ return createNode(key); 
+
+ if (key < n->key) 
+
+ n->left = insert(n->left, key); 
+
+ else if (key > n->key) 
+
+ n->right = insert(n->right, key); 
+
+ n->height = 1 + max(getHeight(n->left), getHeight(n->right)); 
+
+ int bf = getBalanceFactor(n);
 // Left Left Case 
 
  if(bf>1 && key < n->left->key)
